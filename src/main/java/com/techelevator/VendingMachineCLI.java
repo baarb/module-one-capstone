@@ -88,13 +88,18 @@ public class VendingMachineCLI
 				
 				else if(secondChoice.equals(SECOND_MENU_OPTION_FINISH_TRANSACTION)) {
 					//Consume
-					for(Item binTest : bin.getDeliveryBin()) {
-						System.out.println(binTest.getName() + ": " + binTest.makeSound());
+					System.out.println();
+					
+					for(Item itemInBin : bin.getDeliveryBin()) {
+						System.out.println(itemInBin.getName() + ": " + itemInBin.makeSound());
 					}
+					
 					BigDecimal remainingBalance = vendOMatic.getBalance();
 					Change returnedChange = new Change();
-					
 					String finalChange = returnedChange.makeChange(remainingBalance);
+					vendOMatic.setBalance(BigDecimal.ZERO.setScale(2));
+					
+					System.out.println();
 					System.out.println(finalChange);
 					choice = "";
 				}
