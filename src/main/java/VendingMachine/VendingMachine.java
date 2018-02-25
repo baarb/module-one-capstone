@@ -11,93 +11,60 @@ import java.util.Stack;
 
 import Items.Item;
 
-public class VendingMachine
-{
+public class VendingMachine {
 	private BigDecimal balance = new BigDecimal("0.00");
 	private Map<String, Stack<Item>> inventory;
 	private List<Item> itemBin;
-	
-	
+
 	public VendingMachine(Map<String, Stack<Item>> inventory) {
 		this.inventory = inventory;
 	}
 
 	public String inventoryDisplay(VendingMachine machine) throws FileNotFoundException {
-	File inventoryCSV = new File("vendingmachine.csv");
-	Map<String, Stack<Item>> inventory = new HashMap<>();
-	try (Scanner fileScanner = new Scanner(inventoryCSV))
-	{
-		while (fileScanner.hasNextLine())
-		{
-			String line = fileScanner.nextLine();
-			String[] lineArray = line.trim().split("\\|");
-			String mapLocation = lineArray[0];
-			String itemName = lineArray[1];
-			BigDecimal price = new BigDecimal(lineArray[2]);
-			int stackSize = machine.getInventory().get(mapLocation).size();
+		File inventoryCSV = new File("vendingmachine.csv");
+		Map<String, Stack<Item>> inventory = new HashMap<>();
+		try (Scanner fileScanner = new Scanner(inventoryCSV)) {
+			while (fileScanner.hasNextLine()) {
+				String line = fileScanner.nextLine();
+				String[] lineArray = line.trim().split("\\|");
+				String mapLocation = lineArray[0];
+				String itemName = lineArray[1];
+				BigDecimal price = new BigDecimal(lineArray[2]);
+				int stackSize = machine.getInventory().get(mapLocation).size();
 
-			System.out.println(mapLocation + " | " + itemName + " | " + price + " | " + stackSize);
+				System.out.println(mapLocation + " | " + itemName + " | " + price + " | " + stackSize);
+			}
+			return "";
 		}
-		return "";
 	}
-}
-			
-			
-			
-	
-//	public map inventoryDisplay(Map<String, Stack<ItemsClass>> inventory) {
-//		return inventory.entrySet();
-//	}
-	
-	
+
 	public void feedMoney(BigDecimal inputMoney) {
 		balance = balance.add(inputMoney);
-		
+
 	}
+
 	public Stack<Item> dispence(String slotId) {
 		return inventory.get(slotId);
 	}
 
-	public BigDecimal getBalance()
-	{
+	public BigDecimal getBalance() {
 		return balance;
 	}
 
-
-	public void setBalance(BigDecimal balance)
-	{
+	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
 	}
 
-
-	public List<Item> getItemBin()
-	{
+	public List<Item> getItemBin() {
 		return itemBin;
 	}
 
-
-	public void setItemBin(List<Item> itemBin)
-	{
+	public void setItemBin(List<Item> itemBin) {
 		this.itemBin = itemBin;
 	}
 
-
-	public Map<String, Stack<Item>> getInventory()
-	{
+	public Map<String, Stack<Item>> getInventory() {
 		return inventory;
 	}
-	
-	
-	
-	
-	
-	
-	
-	//Methods
-//	deposite
-//	VendingMachine(Map<String, Stack<Item>>)
-//	dispence(String slotId);
-//	finish();//Consume all items, give back balance
-	
-	//Stack.size for quantity of items
+
 }
