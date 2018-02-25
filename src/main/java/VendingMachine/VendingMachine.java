@@ -20,22 +20,25 @@ public class VendingMachine {
 		this.inventory = inventory;
 	}
 
-	public String inventoryDisplay(VendingMachine machine) throws FileNotFoundException {
-		File inventoryCSV = new File("vendingmachine.csv");
-		Map<String, Stack<Item>> inventory = new HashMap<>();
-		try (Scanner fileScanner = new Scanner(inventoryCSV)) {
-			while (fileScanner.hasNextLine()) {
-				String line = fileScanner.nextLine();
-				String[] lineArray = line.trim().split("\\|");
-				String mapLocation = lineArray[0];
-				String itemName = lineArray[1];
-				BigDecimal price = new BigDecimal(lineArray[2]);
-				int stackSize = machine.getInventory().get(mapLocation).size();
+	public String inventoryDisplay() {
+		String output = "";
 
-				System.out.println(mapLocation + " | " + itemName + " | " + price + " | " + stackSize);
+		for (String key : inventory.keySet()) {
+			String itemName;
+			BigDecimal price;
+
+			if (inventory.get(key).isEmpty()) {
+				itemName = "SOLD OUT";
+				price = BigDecimal.ZERO;
+			} else {
+				itemName = inventory.get(key).peek().getName();
+				price = inventory.get(key).peek().getPrice();
 			}
-			return "";
+			int stackSize = inventory.get(key).size();
+			output += key + " | " + itemName + " | " + price + " | " + stackSize + "\n";
 		}
+
+		return output;
 	}
 
 	public void feedMoney(BigDecimal inputMoney) {

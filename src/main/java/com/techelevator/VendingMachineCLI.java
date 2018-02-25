@@ -56,7 +56,7 @@ public class VendingMachineCLI
 
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS))
 			{
-				System.out.println(vendOMatic.inventoryDisplay(vendOMatic));
+				System.out.println(vendOMatic.inventoryDisplay());
 				choice = "";
 
 			}
