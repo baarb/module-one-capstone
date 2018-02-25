@@ -14,7 +14,6 @@ import Items.Item;
 public class VendingMachine {
 	private BigDecimal balance = new BigDecimal("0.00");
 	private Map<String, Stack<Item>> inventory;
-	private List<Item> itemBin;
 
 	public VendingMachine(Map<String, Stack<Item>> inventory) {
 		this.inventory = inventory;
@@ -46,8 +45,25 @@ public class VendingMachine {
 
 	}
 
-	public Stack<Item> dispence(String slotId) {
-		return inventory.get(slotId);
+	public Item dispense(String slotId) {
+		Stack<Item> selectedStack = inventory.get(slotId);
+		if (selectedStack.size() > 0) {
+			BigDecimal selectedItemPrice = selectedStack.peek().getPrice();
+			if (selectedItemPrice.compareTo(balance) <= 0) {
+				Item currentItem = selectedStack.pop();
+				balance = balance.subtract(selectedItemPrice);
+				LogWriter.newLogEntry(currentItem.getName() + " " + slotId + " " + selectedItemPrice + " " + balance);
+				return currentItem;
+
+			} else {
+				System.out.println("Insufficient funds, please add more money.");
+			}
+		}
+
+		else {
+			System.out.println("SOLD OUT");
+		}
+		return null;
 	}
 
 	public BigDecimal getBalance() {
@@ -56,14 +72,6 @@ public class VendingMachine {
 
 	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
-	}
-
-	public List<Item> getItemBin() {
-		return itemBin;
-	}
-
-	public void setItemBin(List<Item> itemBin) {
-		this.itemBin = itemBin;
 	}
 
 	public Map<String, Stack<Item>> getInventory() {

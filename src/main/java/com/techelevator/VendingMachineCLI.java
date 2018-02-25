@@ -42,12 +42,12 @@ public class VendingMachineCLI
 		InventoryReader inventoryReader = new InventoryReader();
 		VendingMachine vendOMatic = new VendingMachine(inventoryReader.generateInventory());
 		DeliveryBin bin = new DeliveryBin();
-		//LogWriter.checkLogFile("Log.txt");
+
 		
 		String choice = "";
-		boolean vendingMachineOn = true;
+
 		
-		while (vendingMachineOn)
+		while (true)
 		{
 			if (choice == "") {
 				choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS,
@@ -76,33 +76,14 @@ public class VendingMachineCLI
 				{
 					String keyInput = (String) menu.getChoiceFromOptions(THIRD_MENU_OPTION_LOCATION,
 							"Current balance is: $" + vendOMatic.getBalance() + ".");
-					int selectedStackSize = vendOMatic.getInventory().get(keyInput).size();
-
-					if (selectedStackSize > 0)
-					{
-						BigDecimal selectedItemPrice = vendOMatic.getInventory().get(keyInput).peek().getPrice();
-						if (selectedItemPrice.compareTo(vendOMatic.getBalance()) <= 0)
-						{
-							Item currentItem = vendOMatic.getInventory().get(keyInput).peek();
-							bin.addToDeliveryBin(currentItem);
-							vendOMatic.getInventory().get(keyInput).pop();
-							BigDecimal newBalance = vendOMatic.getBalance().subtract(selectedItemPrice);
-							vendOMatic.setBalance(newBalance);
-							//System.out.println(vendOMatic.getInventory().get(keyInput).size());
-							LogWriter.newLogEntry(currentItem.getName() + " "+ keyInput + " " + selectedItemPrice + " " + vendOMatic.getBalance());
-
-						}
-						else
-						{
-							System.out.println("Insuficient funds. You broke-ass buster.");
-						}
+					
+					Item boughtItem = vendOMatic.dispense(keyInput);
+					
+					if (boughtItem != null) {
+						bin.addToDeliveryBin(boughtItem);
 					}
-					// Check to see if the Stack has items left
 
-					else if (selectedStackSize == 0)
-					{
-						System.out.println("SOLD OUT");
-					}
+					
 				}
 				
 				else if(secondChoice.equals(SECOND_MENU_OPTION_FINISH_TRANSACTION)) {
@@ -115,7 +96,7 @@ public class VendingMachineCLI
 					
 					String finalChange = returnedChange.makeChange(remainingBalance);
 					System.out.println(finalChange);
-					vendingMachineOn = false;
+					choice = "";
 				}
 			}
 		}
