@@ -9,22 +9,22 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Stack;
 
-import Items.ItemsClass;
+import Items.Item;
 
 public class VendingMachine
 {
 	private BigDecimal balance = new BigDecimal("0.00");
-	private Map<String, Stack<ItemsClass>> inventory;
-	private List<ItemsClass> itemBin;
+	private Map<String, Stack<Item>> inventory;
+	private List<Item> itemBin;
 	
 	
-	public VendingMachine(Map<String, Stack<ItemsClass>> inventory) {
+	public VendingMachine(Map<String, Stack<Item>> inventory) {
 		this.inventory = inventory;
 	}
 
 	public String inventoryDisplay(VendingMachine machine) throws FileNotFoundException {
 	File inventoryCSV = new File("vendingmachine.csv");
-	Map<String, Stack<ItemsClass>> inventory = new HashMap<>();
+	Map<String, Stack<Item>> inventory = new HashMap<>();
 	try (Scanner fileScanner = new Scanner(inventoryCSV))
 	{
 		while (fileScanner.hasNextLine())
@@ -54,7 +54,7 @@ public class VendingMachine
 		balance = balance.add(inputMoney);
 		
 	}
-	public Stack<ItemsClass> dispence(String slotId) {
+	public Stack<Item> dispence(String slotId) {
 		return inventory.get(slotId);
 	}
 
@@ -70,19 +70,19 @@ public class VendingMachine
 	}
 
 
-	public List<ItemsClass> getItemBin()
+	public List<Item> getItemBin()
 	{
 		return itemBin;
 	}
 
 
-	public void setItemBin(List<ItemsClass> itemBin)
+	public void setItemBin(List<Item> itemBin)
 	{
 		this.itemBin = itemBin;
 	}
 
 
-	public Map<String, Stack<ItemsClass>> getInventory()
+	public Map<String, Stack<Item>> getInventory()
 	{
 		return inventory;
 	}

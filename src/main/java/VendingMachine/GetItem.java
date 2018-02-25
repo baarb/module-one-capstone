@@ -3,11 +3,11 @@ package VendingMachine;
 import java.util.Map;
 import java.util.Stack;
 
-import Items.ItemsClass;
+import Items.Item;
 
 public class GetItem extends VendingMachine
 {
-	public GetItem(Map<String, Stack<ItemsClass>> inventory)
+	public GetItem(Map<String, Stack<Item>> inventory)
 	{
 		super(inventory);
 		// TODO Auto-generated constructor stub

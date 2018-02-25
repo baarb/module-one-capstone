@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 import com.techelevator.view.Menu;
 
-import Items.ItemsClass;
+import Items.Item;
 import VendingMachine.Change;
 import VendingMachine.DeliveryBin;
 import VendingMachine.InventoryReader;
@@ -83,7 +83,7 @@ public class VendingMachineCLI
 						BigDecimal selectedItemPrice = vendOMatic.getInventory().get(keyInput).peek().getPrice();
 						if (selectedItemPrice.compareTo(vendOMatic.getBalance()) <= 0)
 						{
-							ItemsClass currentItem = vendOMatic.getInventory().get(keyInput).peek();
+							Item currentItem = vendOMatic.getInventory().get(keyInput).peek();
 							bin.addToDeliveryBin(currentItem);
 							vendOMatic.getInventory().get(keyInput).pop();
 							BigDecimal newBalance = vendOMatic.getBalance().subtract(selectedItemPrice);
@@ -107,7 +107,7 @@ public class VendingMachineCLI
 				
 				else if(secondChoice.equals(SECOND_MENU_OPTION_FINISH_TRANSACTION)) {
 					//Consume
-					for(ItemsClass binTest : bin.getDeliveryBin()) {
+					for(Item binTest : bin.getDeliveryBin()) {
 						System.out.println(binTest.getName() + ": " + binTest.makeSound());
 					}
 					BigDecimal remainingBalance = vendOMatic.getBalance();

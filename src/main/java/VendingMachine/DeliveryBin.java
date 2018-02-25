@@ -3,20 +3,20 @@ package VendingMachine;
 import java.util.ArrayList;
 import java.util.List;
 
-import Items.ItemsClass;
+import Items.Item;
 
 public class DeliveryBin
 {
 	
 	
-	private List<ItemsClass> deliveryBin = new ArrayList<ItemsClass>();
+	private List<Item> deliveryBin = new ArrayList<Item>();
 	
-	public void addToDeliveryBin(ItemsClass vendingItem) {
+	public void addToDeliveryBin(Item vendingItem) {
 		deliveryBin.add(vendingItem);
 	}
 		
 	
-	public List<ItemsClass> getDeliveryBin()
+	public List<Item> getDeliveryBin()
 	{
 		return deliveryBin;
 	}

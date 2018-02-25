@@ -12,19 +12,19 @@ import Items.Beverages;
 import Items.Candy;
 import Items.Chips;
 import Items.Gum;
-import Items.ItemsClass;
+import Items.Item;
 
 public class InventoryReader
 {
-	public Map<String, Stack<ItemsClass>> generateInventory() throws FileNotFoundException
+	public Map<String, Stack<Item>> generateInventory() throws FileNotFoundException
 	{
 		File inventoryCSV = new File("vendingmachine.csv");
-		Map<String, Stack<ItemsClass>> inventory = new HashMap<>();
+		Map<String, Stack<Item>> inventory = new HashMap<>();
 		try (Scanner fileScanner = new Scanner(inventoryCSV))
 		{
 			while (fileScanner.hasNextLine())
 			{
-				Stack<ItemsClass> itemStack = new Stack<>();
+				Stack<Item> itemStack = new Stack<>();
 				String line = fileScanner.nextLine();
 				String[] lineArray = line.trim().split("\\|");
 				String mapLocation = lineArray[0];
