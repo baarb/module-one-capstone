@@ -34,7 +34,8 @@ public class VendingMachine {
 				price = inventory.get(key).peek().getPrice();
 			}
 			int stackSize = inventory.get(key).size();
-			output += key + " | " + itemName + " | " + price + " | " + stackSize + "\n";
+			String format = String.format("%-3s%-3s%-20s%-5s%-5.2f%-3s%-5d\n", key,"|",itemName," | $",price,"|",stackSize);
+			output += format;
 		}
 
 		return output;
